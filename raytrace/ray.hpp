@@ -3,7 +3,7 @@
 
 #include "vec3.hpp"
 
-class ray
+class Ray
 {
 private:
     // 原点和方向
@@ -11,8 +11,8 @@ private:
     vec3 DIRECTION{};
 public:
     // 初始化射线
-    ray() : ORIGIN(), DIRECTION() {};
-    ray(const point & points, const vec3 & vec) : ORIGIN(points), DIRECTION(vec) {};
+    Ray() : ORIGIN(), DIRECTION() {};
+    Ray(const point & points, const vec3 & vec) : ORIGIN(points), DIRECTION(vec) {};
 
     // 获取原点和方向
     point origin() const;
