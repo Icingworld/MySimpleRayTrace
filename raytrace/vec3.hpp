@@ -5,7 +5,7 @@
 
 class vec3
 {
-private:
+public:
     // 一个int类型的3维数组
     double vec[3]{};
 public:
@@ -36,5 +36,35 @@ public:
 // 将三维点、RGB颜色定义为vec3类型
 using point = vec3;
 using color = vec3;
+
+// 与向量相关的内联函数
+
+inline std::ostream& operator<<(std::ostream &out, const vec3 &v) {
+    return out << v.vec[0] << ' ' << v.vec[1] << ' ' << v.vec[2];
+}
+
+inline vec3 operator+(const vec3 &u, const vec3 &v) {
+    return vec3(u.vec[0] + v.vec[0], u.vec[1] + v.vec[1], u.vec[2] + v.vec[2]);
+}
+
+inline vec3 operator-(const vec3 &u, const vec3 &v) {
+    return vec3(u.vec[0] - v.vec[0], u.vec[1] - v.vec[1], u.vec[2] - v.vec[2]);
+}
+
+inline vec3 operator*(const vec3 &u, const vec3 &v) {
+    return vec3(u.vec[0] * v.vec[0], u.vec[1] * v.vec[1], u.vec[2] * v.vec[2]);
+}
+
+inline vec3 operator*(double t, const vec3 &v) {
+    return vec3(t*v.vec[0], t*v.vec[1], t*v.vec[2]);
+}
+
+inline vec3 operator*(const vec3 &v, double t) {
+    return t * v;
+}
+
+inline vec3 operator/(vec3 v, double t) {
+    return (1/t) * v;
+}
 
 #endif
