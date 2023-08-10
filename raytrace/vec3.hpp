@@ -2,6 +2,7 @@
 #define _VEC3_HPP_
 
 #include <cmath>
+#include <iostream>
 
 class vec3
 {
@@ -18,6 +19,8 @@ public:
     double x() const;
     double y() const;
     double z() const;
+    double * getVec() const;
+    int * toIntVec() const;
 
     // 获取3维数组的模
     double modulo() const;

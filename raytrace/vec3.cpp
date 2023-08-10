@@ -15,6 +15,18 @@ double vec3::z() const
     return vec[2];
 }
 
+double * vec3::getVec() const
+{
+    static double vec_temp[3]{vec[0], vec[1], vec[2]};
+    return vec_temp;
+}
+
+int * vec3::toIntVec() const
+{
+    static int vec_temp[3]{static_cast<int>(vec[0]), static_cast<int>(vec[1]), static_cast<int>(vec[2])};
+    return vec_temp;
+}
+
 double vec3::modulo() const
 {
     double sum = vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2];
