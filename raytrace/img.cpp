@@ -31,23 +31,24 @@ void Image::readImage(int *** data)
 void Image::initHead()
 {
     // 初始化位图文件头
-    FILEHEAD.bfType =  0x4D42;
-    FILEHEAD.bfSize = sizeof(BITMAPFILEHEADER) * SIZE[0] * SIZE[1] * 3;
-    FILEHEAD.bfReserved1 = 0;
-    FILEHEAD.bfReserved2 = 0;
-    FILEHEAD.bfOffBits = 54;
+    FILEHEAD.bfType =           0x4D42;
+    FILEHEAD.bfSize =           sizeof(BITMAPFILEHEADER) * SIZE[0] * SIZE[1] * 3;
+    FILEHEAD.bfReserved1 =      0;
+    FILEHEAD.bfReserved2 =      0;
+    FILEHEAD.bfOffBits =        54;
+
     // 初始化位图信息头
-    INFOHEAD.biSize = 40;
-    INFOHEAD.biWidth = SIZE[0];
-    INFOHEAD.biHeight = SIZE[1];
-    INFOHEAD.biPlanes = 1;
-    INFOHEAD.biBitCount = 24;
-    INFOHEAD.biCompression = 0;
-    INFOHEAD.biSizeImage = SIZE[0] * SIZE[1] * 3;
-    INFOHEAD.biXPelsPerMeter = 2834;
-    INFOHEAD.biYPelsPerMeter = 2834;
-    INFOHEAD.biClrUsed = 0;
-    INFOHEAD.biClrImportant = 0;
+    INFOHEAD.biSize =           40;
+    INFOHEAD.biWidth =          SIZE[0];
+    INFOHEAD.biHeight =         SIZE[1];
+    INFOHEAD.biPlanes =         1;
+    INFOHEAD.biBitCount =       24;
+    INFOHEAD.biCompression =    0;
+    INFOHEAD.biSizeImage =      SIZE[0] * SIZE[1] * 3;
+    INFOHEAD.biXPelsPerMeter =  2834;
+    INFOHEAD.biYPelsPerMeter =  2834;
+    INFOHEAD.biClrUsed =        0;
+    INFOHEAD.biClrImportant =   0;
 }
 
 void Image::writeBmp()
@@ -57,8 +58,6 @@ void Image::writeBmp()
         std::cout << "Error opening file for writing!" << std::endl;
         return;
     }
-    // bmpFile.write(reinterpret_cast<char *>(&FILEHEAD), sizeof(FILEHEAD));
-    // bmpFile.write(reinterpret_cast<char *>(&INFOHEAD), sizeof(INFOHEAD));
     bmpFile.write((char *)(&FILEHEAD), sizeof(FILEHEAD));
     bmpFile.write((char *)(&INFOHEAD), sizeof(INFOHEAD));
     uint8_t * imageData = new uint8_t[3];
