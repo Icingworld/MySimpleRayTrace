@@ -30,22 +30,24 @@ void Image::readImage(int *** data)
 
 void Image::initHead()
 {
-    HEAD.signature = 0x4D42; // "BM"
-    HEAD.fileSize = sizeof(BMPHeader) + SIZE[0] * SIZE[1] * 3; // 3 bytes per pixel for 24-bit color
-    HEAD.reserved1 = 0;
-    HEAD.reserved2 = 0;
-    HEAD.dataOffset = sizeof(BMPHeader);
-    HEAD.headerSize = 40;
-    HEAD.width = SIZE[0];
-    HEAD.height = SIZE[1];
-    HEAD.planes = 1;
-    HEAD.bitsPerPixel = 24;
-    HEAD.compression = 0;
-    HEAD.dataSize = SIZE[0] * SIZE[1] * 3;
-    HEAD.horizontalResolution = 2835; // 72 dpi
-    HEAD.verticalResolution = 2835; // 72 dpi
-    HEAD.colors = 0;
-    HEAD.importantColors = 0;
+    // 初始化位图文件头
+    FILEHEAD.bfType =  0x4D42;
+    FILEHEAD.bfSize = sizeof(BITMAPFILEHEADER) * SIZE[0] * SIZE[1] * 3;
+    FILEHEAD.bfReserved1 = 0;
+    FILEHEAD.bfReserved2 = 0;
+    FILEHEAD.bfOffBits = 54;
+    // 初始化位图信息头
+    INFOHEAD.biSize = 40;
+    INFOHEAD.biWidth = SIZE[0];
+    INFOHEAD.biHeight = SIZE[1];
+    INFOHEAD.biPlanes = 1;
+    INFOHEAD.biBitCount = 24;
+    INFOHEAD.biCompression = 0;
+    INFOHEAD.biSizeImage = SIZE[0] * SIZE[1] * 3;
+    INFOHEAD.biXPelsPerMeter = 2834;
+    INFOHEAD.biYPelsPerMeter = 2834;
+    INFOHEAD.biClrUsed = 0;
+    INFOHEAD.biClrImportant = 0;
 }
 
 void Image::writeBmp()
@@ -55,7 +57,18 @@ void Image::writeBmp()
         std::cout << "Error opening file for writing!" << std::endl;
         return;
     }
-    bmpFile.write(reinterpret_cast<char*>(&HEAD), sizeof(BMPHeader));
-    bmpFile.write(reinterpret_cast<char*>(IMAGE), SIZE[0] * SIZE[1] * 3);
+    // bmpFile.write(reinterpret_cast<char *>(&FILEHEAD), sizeof(FILEHEAD));
+    // bmpFile.write(reinterpret_cast<char *>(&INFOHEAD), sizeof(INFOHEAD));
+    bmpFile.write((char *)(&FILEHEAD), sizeof(FILEHEAD));
+    bmpFile.write((char *)(&INFOHEAD), sizeof(INFOHEAD));
+    uint8_t * imageData = new uint8_t[3];
+    for (int i = 0; i < SIZE[0]; i++) {
+        for (int j = 0; j < SIZE[1]; j++) {
+            imageData[0] = static_cast<uint8_t>(IMAGE[i][j][0]);
+            imageData[1] = static_cast<uint8_t>(IMAGE[i][j][1]);
+            imageData[2] = static_cast<uint8_t>(IMAGE[i][j][2]);
+            bmpFile.write((char *)(imageData), 3);
+        }
+    }
     bmpFile.close();
 }
