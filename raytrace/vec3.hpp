@@ -15,12 +15,15 @@ public:
     vec3(double NUM1, double NUM2, double NUM3) : vec{NUM1, NUM2, NUM3} {};
     ~vec3() {};
 
-    //获取3维
+    // 获取3维
     double x() const;
     double y() const;
     double z() const;
     double * getVec() const;
     int * toIntVec() const;
+
+    // 修改数组
+    void modify(const vec3 &);
 
     // 获取3维数组的模
     double modulo() const;

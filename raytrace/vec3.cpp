@@ -27,6 +27,13 @@ int * vec3::toIntVec() const
     return vec_temp;
 }
 
+void vec3::modify(const vec3 & newVec)
+{
+    vec[0] = newVec[0];
+    vec[1] = newVec[1];
+    vec[2] = newVec[2];
+}
+
 double vec3::modulo() const
 {
     double sum = vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2];
