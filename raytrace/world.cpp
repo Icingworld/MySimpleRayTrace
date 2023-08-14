@@ -33,7 +33,7 @@ void World::render()
             // 获得射线
             Ray ray(raw, viewPoint/viewPoint.modulo());
             // 计算和球体的交点
-            // TODO: 先完成Object类
+            // 先判断距离,再计算交点
         }
     }
 }
@@ -48,4 +48,9 @@ double World::getCoordinate(const int i, const int all) const
         // 是奇数
         return static_cast<double>(i) - (static_cast<double>(all - 1)) / 2.0;
     }
+}
+
+point World::getCross(Ray &) const
+{
+
 }

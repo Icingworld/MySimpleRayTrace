@@ -18,7 +18,7 @@ private:
     // 迭代深度
     int MAX{3};
 public:
-    World() : LIGHT{0, 400, 300} {};
+    World() : LIGHT{0, 400, 1000} {};
     // 修改光源位置0
     void setLight(const point &);
     // 设置相机和视口
@@ -31,6 +31,8 @@ public:
     void render();
     // 计算视口点坐标
     double getCoordinate(const int, const int) const;
+    // 计算交点
+    point getCross(Ray &) const;
 };
 
 #endif
